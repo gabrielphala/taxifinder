@@ -20,6 +20,15 @@ module.exports.isDriverVerified = (req, res, next) => {
     next();
 }
 
+module.exports.isAssociationVerified = (req, res, next) => {
+    if (
+        (!req.store) ||
+        (req.store && !req.store.taxi_association_admin_info)
+    ) return res.redirect('/driver/sign-in')
+
+    next();
+}
+
 module.exports.loadUserInfo = (req, res, next) => {
     if (!req.cookies || req.cookies && !req.cookies['tf_user'])
         return next();
