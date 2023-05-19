@@ -1,0 +1,71 @@
+<div class="container">
+    <%- include('../partials/sidenav/driver') %>
+
+    <div class="container__main">
+        <%- include('../partials/header') %>
+
+        <div class="container__main__title">
+            <h1>My taxi</h1>
+            <p>Update your taxi information here.</p>
+            <div class="container__main__title__dash"></div>
+        </div>
+
+        <div class="container__main__content taxi-profile flex">
+            <div class="taxi-profile__taxi-photo">
+                <div class="taxi-profile__taxi-photo__back image--back" style="background-image: url('/assets/uploads/profile/taxi/pexels-aleksandar-pasaric-325185.jpg');"></div>
+                <div class="taxi-profile__taxi-photo__edit pos--abs">
+                    <label for="taxi-photo" class="pos--abs pos--center">
+                        <svg class="image--icon">
+                            <use href="#pencil"></use>
+                        </svg>
+                    </label>
+                </div>
+            </div>
+            <form id="taxi-add-form" class="taxi-profile__taxi-details">
+                <input type="file" id="taxi-photo" hidden>
+                <div class="twin-inputs flex flex--j-space-between">
+                    <div class="input">
+                        <input type="text" id="taxi-make" placeholder="Make e.g. Toyota">
+                    </div>
+                    <div class="input">
+                        <input type="text" id="taxi-model" placeholder="Model e.g. Quantum">
+                    </div>
+                </div>
+                <div class="twin-inputs flex flex--j-space-between">
+                    <div class="input">
+                        <input type="text" id="taxi-licence" placeholder="Licence e.g. FKB 549 N">
+                    </div>
+                    <div class="input">
+                        <input type="text" id="taxi-seats" placeholder="Seats e.g. 16">
+                    </div>
+                </div>
+                <div class="flex flex--a-center">
+                    <button class="btn btn--primary margin--right-1">Update</button>
+                    <p style="color: darkred; margin-left: 2rem;" id="remove-taxi">Remove taxi</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dist/jquery.js"></script>
+
+<script type="module">
+    import Taxi from "/assets/js/src/auth/Taxi.js"
+
+    $('#taxi-add-form').on('submit', async e => {
+        e.preventDefault()
+
+        await Taxi.add();
+
+        await Taxi.loadTaxiInfo();
+    })
+
+    $('#remove-taxi').on('click', async e => {
+        e.preventDefault()
+
+        await Taxi.remove();
+    })
+
+    await Taxi.loadTaxiInfo()
+</script>

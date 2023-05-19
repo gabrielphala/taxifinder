@@ -1,0 +1,32 @@
+.input{
+    position: relative;
+
+    label{
+        font-family: @poppins-medium;
+    }
+
+    label + select, label + textarea{
+        margin-top: .5rem;
+    }
+
+    input, select, textarea{
+        position: relative;
+        width: 100%;
+        padding: 1.2rem 1.4rem;
+        background-color: #fcfcfc;
+        color: #696969;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        z-index: 1;
+
+        &:disabled{
+            background-color: #fafafa;
+        }
+    }
+}
+
+.twin-inputs{
+    .input{
+        flex: 0 0 49%;
+    }
+}

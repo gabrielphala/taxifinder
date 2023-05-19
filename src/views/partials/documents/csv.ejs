@@ -1,0 +1,37 @@
+<% 
+    let headerLoopIndex = 0;
+    let hasIndex = tableHeader[0] == '#';
+
+    const displayHeader = () => {
+        let formated = '';
+
+        tableHeader.forEach(item => {
+            formated += ++headerLoopIndex !=tableHeader.length ? item + ',' : item
+        })
+
+        return formated += '\n';
+    }
+
+    const displayBody = () => {
+        let formated = '', formatedRow = '', index = 0;
+
+        for (let i = 0; i < data.length; i++) {
+            if (hasIndex) formatedRow += `${++index},`
+
+            for (let column in data[i]) {
+                if (!allowedColumns.includes(column))
+                    continue;
+
+                formatedRow += data[i][column] + ","
+            }
+
+            formated += formatedRow.substring(0, formatedRow.length) + "\n"
+
+            formatedRow = ''
+        }
+
+        return formated;
+    }
+%>
+<%= displayHeader() %>
+<%= displayBody() %>

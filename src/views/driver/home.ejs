@@ -1,0 +1,97 @@
+<div class="container">
+    <%- include('../partials/sidenav/driver') %>
+
+    <div class="container__main">
+        <%- include('../partials/header') %>
+
+        <div class="container__main__content dashboard">
+            <div class="dashboard__stats flex flex--j-space-between">
+                <div class="dashboard__stats__item flex flex--a-start">
+                    <div class="dashboard__stats__item__icon">
+                        <svg>
+                            <use href="#clock"></use>
+                        </svg>
+                    </div>
+                    <div class="dashboard__stats__item__details">
+                        <p>total trips completed</p>
+                        <h1>0</h1>
+                    </div>
+                </div>
+                <div class="dashboard__stats__item flex flex--a-start">
+                    <div class="dashboard__stats__item__icon">
+                        <svg>
+                            <use href="#users"></use>
+                        </svg>
+                    </div>
+                    <div class="dashboard__stats__item__details">
+                        <p>total passangers ferried</p>
+                        <h1>0</h1>
+                    </div>
+                </div>
+                <div class="dashboard__stats__item flex flex--a-start">
+                    <div class="dashboard__stats__item__icon">
+                        <svg>
+                            <use href="#map"></use>
+                        </svg>
+                    </div>
+                    <div class="dashboard__stats__item__details">
+                        <p>total distance traveled</p>
+                        <h1>0</h1>
+                    </div>
+                </div>
+                <div class="dashboard__stats__item flex flex--a-start">
+                    <div class="dashboard__stats__item__icon">
+                        <svg>
+                            <use href="#money"></use>
+                        </svg>
+                    </div>
+                    <div class="dashboard__stats__item__details">
+                        <p>total revenue</p>
+                        <h1>0</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container__main__content__sub-title">
+                <h1>Current trip</h1>
+                <p>View project details</p>
+            </div>
+            <div class="table card">
+                <div class="table__header">
+                    <ul class="table__header__row">
+                        <li class="table__header__row__item">Starting location</li>
+                        <li class="table__header__row__item">Destination</li>
+                        <li class="table__header__row__item">Distance</li>
+                        <li class="table__header__row__item">Cost</li>
+                        <li class="table__header__row__item">Status</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="latest-trip">
+                    
+                </div>
+            </div>
+            <div class="container__main__content__sub-title">
+                <h1>Passangers onboard</h1>
+                <p>Passangers boarding for this trip. | 6 Seats left</p>
+            </div>
+            <div class="dashboard__passangers flex flex--j-space-between">
+                <div class="dashboard__passangers__passanger">
+                    <p>Gabriel Phala - 0728430468</p>
+                </div>
+                <div class="dashboard__passangers__passanger">
+                    <p>Gabriel Phala - 0728430468</p>
+                </div>
+                <div class="dashboard__passangers__passanger">
+                    <p>Gabriel Phala - 0728430468</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dist/jquery.js"></script>
+<script type="module">
+    import Trip from "/assets/js/src/auth/Trip.js"
+
+    Trip.getLatest()
+ 
+</script>

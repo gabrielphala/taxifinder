@@ -1,0 +1,63 @@
+<div class="container">
+    <div style="width: 40rem; margin: 15rem auto;">
+        <div id="paypal-button-container" style="display: none;"></div>
+        <div id="payment-made" style="display: none;">
+            <h1>Payment already made</h1>
+            <p>Cheers. you have already paid for this trip</p>
+            <p style="margin-top: 3rem; color: #1b63d8;"><a href="/home">Go back</a></p>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dist/jquery.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=Ad8o3Yz_o8HwA1gY3y7LKlCMObgoNzdPIrzoEFbxgeK0Rw2zaEzeJMftJGHAzSEQkS3VIYtA4l7QNdvq&currency=USD"></script>
+<script type="module">
+    import Payment from "/assets/js/src/auth/Payment.js"
+    import Trip from "/assets/js/src/auth/Trip.js"
+
+    const tripId = '<%= url.query.trip %>';
+
+    (async () => {
+        const exists = await Payment.exists(tripId);
+
+        if (!exists) return $('#paypal-button-container').show()
+
+        else return $('#payment-made').show();
+        
+    })()
+
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        // Set up the transaction
+        createOrder: async function (data, actions) {
+            Payment.add(tripId);
+
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: parseInt((await Trip.getCost(tripId)) / 10)
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (orderData) {
+                Payment.finalize(tripId, orderData.id);
+
+                // Successful capture! For demo purposes:
+                // var transaction = orderData.purchase_units[0].payments.captures[0];
+                // alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                // Replace the above to show a success message within this page, e.g.
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>

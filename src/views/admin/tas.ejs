@@ -1,0 +1,118 @@
+<div class="container">
+    <%- include('../partials/sidenav/admin') %>
+
+    <div class="container__main">
+        <%- include('../partials/header') %>
+
+        <div class="container__main__title">
+            <h1>Taxi Association Admins</h1>
+            <p>Keep track of all your drivers</p>
+            <div class="container__main__title__dash"></div>
+        </div>
+
+        <div class="container__main__content">
+            <form id="search-form" class="flex flex--a-center" style="margin-bottom: 2rem;">
+                <div class="input" style="flex: 0 0 56rem; margin-right: 1.4rem;">
+                    <input type="text" id="search-value" placeholder="Search by names, email, or association name">
+                </div>
+                <button class="btn btn--primary">Search</button>
+            </form>
+
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row flex">
+                        <li class="table__header__row__item">#</li>
+                        <li class="table__header__row__item">First name</li>
+                        <li class="table__header__row__item">Last name</li>
+                        <li class="table__header__row__item">Email address</li>
+                        <li class="table__header__row__item">Association name</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="user-list">
+                    <ul class="table__body__row"></ul>
+                </div>
+            </div>
+            <div class="flex flex--j-space-between">
+                <p class="flex flex--a-center open-admin-modal">
+                    <svg class="image--icon" style="margin-right: 1rem;">
+                        <use href="#add"></use>
+                    </svg>
+                    <span>Add new admin</span>
+                </p>
+                <p class="flex" style="margin-top: 3rem; cursor: pointer;">
+                    <span id="download-csv">Download CSV</span>
+                    <span style="margin: 0 1rem;">|</span>
+                    <span>Download PDF</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--closed" id="tas-admin-modal">
+    <form class="modal__main card" id="tas-admin-form">
+        <div class="card__header card__header--no-border flex flex--a-center flex--j-space-between">
+            <div class="card__header__left">
+                <h1>New taxi association admin</h1>
+                <p>Add new administrator</p>
+            </div>
+            <svg class="image--icon close-admin-modal">
+                <use href="#cross"></use>
+            </svg>
+        </div>
+        <div class="card__body">
+            <p id="new-tas-error" class="hide" style="margin-bottom: 1rem; color: darkred;">Error: something went wrong</p>
+
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input">
+                    <input type="text" id="taa-firstname" placeholder="First name">
+                </div>
+                <div class="input">
+                    <input type="text" id="taa-lastname" placeholder="Last name">
+                </div>
+            </div>
+
+            <div class="twin-inputs flex flex--j-space-between" style="margin-top: 2rem;">
+                <div class="input">
+                    <input type="email" id="taa-email-address" placeholder="Email address">
+                </div>
+                <div class="input">
+                    <input type="text" id="taa-association-name" placeholder="Association name">
+                </div>
+            </div>
+        </div>
+        <div class="card__footer">
+            <button class="btn btn--primary">Add administrator</button>
+            <button class="btn close-admin-modal" type="button">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<a download id="download-anchor"></a>
+
+<script src="/assets/js/dist/jquery.js"></script>
+<script type="module">
+    import TaxiAssociationAdmin from "/assets/js/src/auth/TaxiAssociationAdmin.js"
+    import { openModal, closeModal } from "/assets/js/src/helpers/modal.js"
+
+    $('.close-admin-modal').on('click', e => closeModal('tas-admin'))
+    $('.open-admin-modal').on('click', e => openModal('tas-admin'))
+
+    $('#tas-admin-form').on('submit', e => {
+        e.preventDefault();
+
+        TaxiAssociationAdmin.add();
+    })
+
+    TaxiAssociationAdmin.getAll()
+
+    $('#download-csv').on('click', e => {
+        TaxiAssociationAdmin.downloadCSV();
+    })
+
+    $('#search-form').on('submit', e => {
+        e.preventDefault();
+
+        TaxiAssociationAdmin.searchAll();
+    })
+</script>

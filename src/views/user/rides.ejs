@@ -1,0 +1,43 @@
+<div class="container">
+    <%- include('../partials/sidenav/user') %>
+
+    <div class="container__main">
+        <%- include('../partials/header') %>
+
+        <div class="container__main__title">
+            <h1>Ride history</h1>
+            <p>Revisit your journey log</p>
+            <div class="container__main__title__dash"></div>
+        </div>
+
+        <div class="container__main__content">
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row flex">
+                        <li class="table__header__row__item">Taxi Plate</li>
+                        <li class="table__header__row__item">From</li>
+                        <li class="table__header__row__item">Destination</li>
+                        <li class="table__header__row__item">Fare</li>
+                        <li class="table__header__row__item">Ride Date</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="trip-list">
+                    <ul class="table__body__row flex">
+                        <li class="table__body__row__item">FKB 456 GP</li>
+                        <li class="table__body__row__item">Address, Here, Gauteng</li>
+                        <li class="table__body__row__item">Address, Here, Gauteng</li>
+                        <li class="table__body__row__item">R50.00</li>
+                        <li class="table__body__row__item">Yesterday, 12:00</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dist/jquery.js"></script>
+<script type="module">
+    import Trip from "/assets/js/src/auth/Trip.js"
+
+    Trip.getForUser();
+</script>

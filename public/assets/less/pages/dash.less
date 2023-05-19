@@ -1,0 +1,43 @@
+.dashboard{
+    padding-top: 7rem;
+
+    &__stats{
+        &__item {
+            flex: 0 0 calc(100% / 4 - 1rem);
+            background-color: #fff;
+            box-shadow: 0 0 10px #eee;
+            padding: 1.3rem 2rem;
+            border-radius: 6px;
+
+            &__icon{
+                margin-right: 2rem;
+
+                svg{
+                    width: 5rem;
+                    height: 5rem;
+                    fill: #aebdd5;
+                }
+            }
+
+            &__details{
+                h1{
+                    color: #8592a6;
+                    font-size: 4rem;
+                }
+            }
+        }
+    }
+
+    &__passangers{
+        flex-wrap: wrap;
+        width: 50%;
+
+        &__passanger{
+            flex: 0 0 calc(100% / 2 - 1rem);
+            background-color: #ededed;
+            border-radius: 6px;
+            padding: 0.3rem 1rem;
+            margin-bottom: 1rem;
+        }
+    }
+}

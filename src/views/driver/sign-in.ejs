@@ -1,0 +1,41 @@
+<div class="logger flex flex--j-center">
+    <div class="logger__main">
+        <div class="logger__main__header flex flex--a-center flex--j-center">
+            <div class="logger__main__header__logo">
+                <img src="/assets/illustrations/triangle.svg" class="pos--abs pos--center" alt="">
+            </div>
+            <h4>taxi<span style="color: #1b63d8">finder</span></h4>
+        </div>
+        <form id="sign-in-form" class="logger__main__form card">
+            <div class="card__header card__header--no-border">
+                <h4>Sign in</h4>
+                <p>Taxi driver</p>
+            </div>
+            <div class="card__body">
+                <p id="logger-error" class="hide" style="margin-bottom: 1rem; color: darkred;">Error: something went wrong</p>
+                <div class="input">
+                    <input type="email" id="email-address" placeholder="Email address">
+                </div>
+                <div class="input">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <button class="btn btn--primary">Sign in</button>
+            </div>
+        </form>
+        <div class="logger__main__footer flex flex--a-center" style="flex-direction: column;">
+            <p>Don't have an account? <a href="/driver/sign-up">sign up</a></p>
+            <p>Are you a passenger? <a href="/sign-in">sign in</a></p>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dist/jquery.js"></script>
+<script type="module">
+    import Driver from "/assets/js/src/auth/Driver.js"
+
+    $('#sign-in-form').on('submit', async e => {
+        e.preventDefault()
+
+        await Driver.signIn()
+    })
+</script>

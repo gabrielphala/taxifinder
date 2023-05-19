@@ -1,0 +1,51 @@
+<div class="container">
+    <%- include('../partials/sidenav/user') %>
+
+    <div class="container__main">
+        <%- include('../partials/header') %>
+
+        <div class="container__main__title">
+            <h1>Get a ride</h1>
+            <p>Start your journey here</p>
+            <div class="container__main__title__dash"></div>
+        </div>
+
+        <div class="container__main__content">
+            <form id="search-form" class="flex flex--a-center" style="margin-bottom: 2rem;">
+                <div class="input" style="flex: 0 0 28rem; margin-right: 1.4rem;">
+                    <input type="text" id="search-starting-location" placeholder="Starting location">
+                </div>
+                <div class="input" style="flex: 0 0 28rem; margin-right: 1.4rem;">
+                    <input type="text" id="search-dest-location" placeholder="Destination">
+                </div>
+                <button class="btn btn--primary">Search</button>
+            </form>
+            <div class="table card">
+                <div class="table__header">
+                    <ul class="table__header__row">
+                        <li class="table__header__row__item">Starting location</li>
+                        <li class="table__header__row__item">Destination</li>
+                        <li class="table__header__row__item">Distance</li>
+                        <li class="table__header__row__item">Cost</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="routes"></div>
+                <div class="card__body" id="no-content">
+                    <h4>No routes available</h4>
+                    <p>Search a route to your destination</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dist/jquery.js"></script>
+<script type="module">
+    import Route from "/assets/js/src/auth/Route.js"
+
+    $('#search-form').on('submit', e => {
+        e.preventDefault();
+
+        Route.searchRoutesForUser();
+    })
+</script>

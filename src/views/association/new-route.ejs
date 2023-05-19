@@ -1,0 +1,63 @@
+<div class="container">
+    <%- include('../partials/sidenav/association') %>
+
+    <div class="container__main">
+        <%- include('../partials/header') %>
+
+            <div class="container__main__title">
+                <h1>New route</h1>
+                <p>Set up taxi routes for local taxis</p>
+            </div>
+
+            <div class="container__main__content new-trip flex flex--a-start">
+                <form id="new-trip-form" class="new-trip__form">
+                    <h4>Route info</h4>
+
+                    <div class="new-trip__form__main">
+                        <div class="input">
+                            <input type="text" id="starting-location" placeholder="Starting location">
+                        </div>
+
+                        <div class="input">
+                            <input type="text" id="destination-location" placeholder="Destination">
+                        </div>
+                    </div>
+
+                    <button class="btn btn--primary">Add Route</button>
+                </form>
+                <div id="google-maps"></div>
+            </div>
+    </div>
+</div>
+
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCExDeX8n3rl2wwEKVuL1XoKLSzyWq33HU&libraries=places"></script>
+<script src="/assets/js/dist/jquery.js"></script>
+<script type="module">
+    import { initMap, initAutoComplete, calculateRoute } from "/assets/js/src/helpers/googlemaps.js"
+    import Route from "/assets/js/src/auth/Route.js"
+
+    let startCoords, destCoords;
+
+    const { map, myLatlng } = initMap();
+
+    initAutoComplete($('#starting-location')[0], (coords) => {
+        startCoords = coords;
+
+        if (destCoords)
+            calculateRoute(map, myLatlng, coords, destCoords)
+    })
+
+    initAutoComplete($('#destination-location')[0], (coords) => {
+        destCoords = coords;
+
+        if (startCoords)
+            calculateRoute(map, myLatlng, startCoords, coords)
+    })
+
+    $('#new-trip-form').on('submit', e => {
+        e.preventDefault();
+
+        Route.add(startCoords, destCoords);
+    })
+</script>

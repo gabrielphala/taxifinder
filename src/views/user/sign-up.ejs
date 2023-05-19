@@ -1,0 +1,51 @@
+<div class="logger flex flex--j-center">
+    <div class="logger__main">
+        <div class="logger__main__header flex flex--a-center flex--j-center">
+            <div class="logger__main__header__logo">
+                <img src="/assets/illustrations/triangle.svg" class="pos--abs pos--center" alt="">
+            </div>
+            <h4>taxi<span style="color: #1b63d8">finder</span></h4>
+        </div>
+        <div class="logger__main__form card">
+            <div class="card__header card__header--no-border">
+                <h4>Sign up</h4>
+                <p>Passanger</p>
+            </div>
+            <form id="user-sign-up-form" class="card__body">
+                <p id="logger-error" class="hide" style="margin-bottom: 1rem; color: darkred;">Error: something went wrong</p>
+                <div class="input">
+                    <input type="text" id="firstname" placeholder="First name">
+                </div>
+                <div class="input">
+                    <input type="text" id="lastname" placeholder="Last name">
+                </div>
+                <div class="input">
+                    <input type="email" id="email-address" placeholder="Email address">
+                </div>
+                <div class="input">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <div class="input">
+                    <input type="password" id="password-again" placeholder="Password confirmation">
+                </div>
+                <button class="btn">Sign up</button>
+            </form>
+        </div>
+        <div class="logger__main__footer flex flex--a-center" style="flex-direction: column;">
+            <p>Already have an account? <a href="/sign-in">sign in</a></p>
+            <p>Are you a driver? <a href="/driver/sign-in">sign in</a></p>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dist/jquery.js"></script>
+
+<script type="module">
+    import User from "/assets/js/src/auth/User.js"
+
+    $('#user-sign-up-form').on('submit', async e => {
+        e.preventDefault()
+
+        await User.signUp()
+    })
+</script>

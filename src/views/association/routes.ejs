@@ -1,0 +1,50 @@
+<div class="container">
+    <%- include('../partials/sidenav/association') %>
+
+    <div class="container__main">
+        <%- include('../partials/header') %>
+
+        <div class="container__main__title">
+            <h1>Routes</h1>
+            <p>Keep track of all your drivers</p>
+            <div class="container__main__title__dash"></div>
+        </div>
+
+        <div class="container__main__content">
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row flex">
+                        <li class="table__header__row__item">#</li>
+                        <li class="table__header__row__item">From</li>
+                        <li class="table__header__row__item">To</li>
+                        <li class="table__header__row__item">....</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="route-list">
+                    <ul class="table__body__row"></ul>
+                </div>
+            </div>
+            <div class="flex flex--j-space-between">
+                <p></p>
+                <p class="flex" style="margin-top: 3rem; cursor: pointer;">
+                    <span id="download-csv">Download CSV</span>
+                    <span style="margin: 0 1rem;">|</span>
+                    <span>Download PDF</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a download id="download-anchor"></a>
+
+<script src="/assets/js/dist/jquery.js"></script>
+<script type="module">
+    import Route from "/assets/js/src/auth/Route.js"
+
+    Route.getForAssociation();
+
+    $('#download-csv').on('click', e => {
+        Route.downloadCSV();
+    })
+</script>

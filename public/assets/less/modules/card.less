@@ -1,0 +1,42 @@
+.generic-card{
+    background-color: #fff;
+    box-shadow: 0 0 4px #e0e0e0, 0 0 1px #c9c9c9;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.card{
+    .generic-card;
+
+    &__header, &__body, &__footer{
+        padding: 1.2rem 1.4rem;
+    }
+
+    &__header{
+        border-bottom: 1px solid #eaeaea;
+
+        &--no-border{
+            border-bottom: none;
+        }
+
+        &__left{
+            h1{
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    &__body{
+        &--no-pad{
+            padding: 1.2rem 0;
+        }
+    }
+
+    &__footer{
+        border-top: 1px solid #eaeaea;
+
+        &--no-border{
+            border-top: none;
+        }
+    }
+}

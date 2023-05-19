@@ -1,0 +1,63 @@
+.popup {
+    position: fixed;
+    top: 7rem;
+    right: 3rem;
+    width: 36rem;
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px #969696;
+    opacity: 0;
+    z-index: -1;
+    transition: all .5s;
+
+    &--open {
+        opacity: 1;
+        z-index: 1;
+        transform: translateY(-2rem);
+    }
+
+    &__icon {
+        flex: 0 0 6rem;
+        position: relative;
+
+        svg {
+            fill: #007b04;
+        }
+    }
+
+    &__message {
+        position: relative;
+        flex: 1;
+        padding: 1.4rem;
+        padding-left: 0;
+
+        h4 {
+            color: #007f05;
+        }
+
+        p {
+            color: #767676;
+        }
+
+        svg {
+            position: absolute;
+            top: 1.4rem;
+            right: 1.4rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: #727272;
+            cursor: pointer;
+        }
+    }
+
+    &--error {
+        .popup__icon svg {
+            fill: #7b0000;
+        }
+
+        .popup__message h4 {
+            color: #7b0000;
+        }
+    }
+}
