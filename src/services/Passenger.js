@@ -12,7 +12,7 @@ module.exports = class PassengerService {
 
             const passengerCount = await Passenger.countPerTrip(tripDetails.id)
 
-            if (passengerCount + 1 >= tripDetails.seats) {
+            if (passengerCount + 1 > tripDetails.seats) {
                 if (tripDetails.status != 'full')
                     Trip.setStatusToFull(tripDetails.id)
 
@@ -39,5 +39,19 @@ module.exports = class PassengerService {
 
             return wrap_res;
         } catch (e) { throw e; }
+    }
+
+    static async getPassengersByCurrentTrip (wrap_res, body, { user_info }) {
+        try {
+            const currentTrip = await Trip.getLatest(user_info.id);
+
+            if (!currentTrip) return wrap_res;
+
+            wrap_res.passengers = await Passenger.getPassengersByTrip(currentTrip.id);
+
+            wrap_res.successful = true;
+
+            return wrap_res;
+        } catch (e) { throw e; } 
     }
 }

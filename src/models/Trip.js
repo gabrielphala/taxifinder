@@ -29,7 +29,7 @@ module.exports = new (class Trip extends SQLifier {
             join: [
                 {
                     ref: 'route',
-                    id: 'driver_id'
+                    id: 'driver_id' // this might be a mistake
                 },
                 {
                     ref: 'taxi',
@@ -50,9 +50,29 @@ module.exports = new (class Trip extends SQLifier {
         })
     }
 
+    getById (trip_id) {
+        return this.findOne({
+            condition: { id: trip_id },
+            join: [
+                {
+                    ref: 'route',
+                    id: 'route_id'
+                },
+                {
+                    ref: 'user',
+                    id: 'driver_id'
+                }
+            ]
+        })
+    }
+
     getLatest (driverId) {
         return this.findLatestOne({
-            condition: { driver_id: driverId }
+            condition: { driver_id: driverId },
+            join: {
+                ref: 'route',
+                id: 'route_id'
+            }
         })
     }
 

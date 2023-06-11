@@ -14,6 +14,16 @@ module.exports = new (class Passenger extends SQLifier {
         })
     }
 
+    getPassengersByTrip (trip_id) {
+        return this.find({
+            condition: { trip_id },
+            join: {
+                ref: 'user',
+                id: 'user_id'
+            }
+        })
+    }
+
     findExistingBooking (userId) {
         return this.findLatestOne({
             condition: { user_id: userId },

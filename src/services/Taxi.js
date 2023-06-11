@@ -56,7 +56,9 @@ module.exports = class TaxiService {
 
     static async get (wrap_res, body, { user_info }) {
         try {
-            wrap_res.taxi = (await Taxi.getByDriver(user_info.id)).toObject()
+            const taxi = await Taxi.getByDriver(user_info.id);
+
+            wrap_res.taxi = taxi ? taxi.toObject() : {};
 
             wrap_res.successful = true;
 

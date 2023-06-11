@@ -18,4 +18,6 @@ module.exports = new (class Payment extends SQLifier {
     finalize ({ trip_id, user_id, payment_id }) {
         this.update({ trip_id, user_id }, { payment_id, complete: true })
     }
+
+    
 })

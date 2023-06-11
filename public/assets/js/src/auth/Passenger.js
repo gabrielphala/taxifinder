@@ -1,6 +1,8 @@
 import fetch from "../helpers/fetch.js"
 import popup from "../helpers/popup.js"
 
+import { arrayNotEmpty } from "../helpers/array.js"
+
 export default class Passanger {
     static async board (route_id) {
         const response = await fetch('/passenger/board', {
@@ -30,5 +32,39 @@ export default class Passanger {
         })
 
         return 1;
+    }
+
+    static async getPassengersByCurrentTrip () {
+        const response = await fetch('/passengers/get-by-current-trip');
+        const taxi_response = await fetch('/taxi/get');
+
+        let passengerCount = 0;
+
+        if (arrayNotEmpty(response.passengers)) {
+            let formated = '';
+
+            response.passengers.forEach(passenger => {
+                formated += `
+                    <div class="dashboard__passangers__passanger">
+                        <p>${passenger.firstname} ${passenger.lastname} - ${passenger.email}</p>
+                    </div>
+                `
+            });
+
+            passengerCount = response.passengers.length;
+
+            $('#passenger-list').html(formated)
+        }
+
+        let seats = 0;
+
+        console.log(taxi_response);
+
+        if (taxi_response && taxi_response.taxi && taxi_response.taxi.seats) seats = taxi_response.taxi.seats;
+
+        $('#seats-count').text(
+            seats ? `${seats - passengerCount} seats left` :
+            'Taxi not added'
+        )
     }
 }

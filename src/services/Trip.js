@@ -57,7 +57,10 @@ module.exports = class TripService {
 
     static async getLatest (wrap_res, body, { user_info }) {
         try {
-            wrap_res.trip = await Trip.getLatest(user_info.id);
+            const latest = await Trip.getLatest(user_info.id);
+
+            wrap_res.trip = latest ? latest.toObject() : {};
+
             wrap_res.successful = true;
 
             return wrap_res;
