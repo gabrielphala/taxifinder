@@ -12,7 +12,7 @@
 
         <div class="container__main__content taxi-profile flex">
             <div class="taxi-profile__taxi-photo">
-                <div class="taxi-profile__taxi-photo__back image--back" style="background-image: url('/assets/uploads/profile/taxi/pexels-aleksandar-pasaric-325185.jpg');"></div>
+                <div class="taxi-profile__taxi-photo__back image--back" style="background-image: url('/assets/uploads/profile/taxi/download.jpg');"></div>
                 <div class="taxi-profile__taxi-photo__edit pos--abs">
                     <label for="taxi-photo" class="pos--abs pos--center">
                         <svg class="image--icon">
@@ -65,6 +65,10 @@
         e.preventDefault()
 
         await Taxi.remove();
+    })
+
+    $('#taxi-photo').on('change', async e => {
+        await Taxi.changePhoto();
     })
 
     await Taxi.loadTaxiInfo()

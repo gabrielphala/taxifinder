@@ -29,6 +29,9 @@ module.exports = class TaxiService {
 
     static async add (wrap_res, body, { user_info }) {
         try {
+            if (parseInt(body.seats) > 100 || parseInt(body.seats) < 7) throw 'Seats cannot be more that 100 or less than 7'
+            if (body.licence.length > 10 || body.licence.length < 7) throw 'Number plate cannot have more than 10 characters or less than 6'
+            
             if (!(await Taxi.exists({ driver_id: user_info.id, is_deleted: false })).found)
                 TaxiService.addTaxi(body, null, user_info.id)
             
@@ -64,5 +67,15 @@ module.exports = class TaxiService {
 
             return wrap_res;
         } catch (e) { throw e; }
+    }
+
+    static async changeProfile (res_wrap, body, req) {
+        if ((await Taxi.exists({ driver_id: req.store.user_info.id, is_deleted: false })).found) {
+            Taxi.updateProfile(req.store.user_info.id, req.files[0].filename)
+        }
+        
+        res_wrap.successful = true;
+
+        return res_wrap;
     }
 }
