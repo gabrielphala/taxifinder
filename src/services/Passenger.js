@@ -54,4 +54,21 @@ module.exports = class PassengerService {
             return wrap_res;
         } catch (e) { throw e; } 
     }
+
+    static async getPassengersByAssociation (wrap_res, body, { taxi_association_admin_info }) {
+        const routes = await Route.getForAssociation(taxi_association_admin_info.id);
+        const passangers = [];
+
+        for (let i = 0; i < routes.length; i++) {
+            const route = routes[i];
+
+            passangers.push(...await Passenger.getPassangersByRoute(route.id))
+        }
+
+        wrap_res.passengers = passangers;
+
+        wrap_res.successful = true;
+
+        return wrap_res;
+    }
 }

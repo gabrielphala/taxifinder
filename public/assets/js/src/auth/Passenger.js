@@ -2,6 +2,8 @@ import fetch from "../helpers/fetch.js"
 import popup from "../helpers/popup.js"
 
 import { arrayNotEmpty } from "../helpers/array.js"
+import { formatAssPassangers } from "../helpers/format.js"
+
 
 export default class Passanger {
     static async board (route_id) {
@@ -58,13 +60,19 @@ export default class Passanger {
 
         let seats = 0;
 
-        console.log(taxi_response);
-
         if (taxi_response && taxi_response.taxi && taxi_response.taxi.seats) seats = taxi_response.taxi.seats;
 
         $('#seats-count').text(
             seats ? `${seats - passengerCount} seats left` :
             'Taxi not added'
         )
+    }
+
+    static async getPassangersByAssociation () {
+        const response = await fetch('/passengers/get-by-association');
+
+        if (arrayNotEmpty(response.passengers)) {
+            $('#passanger-list').html(formatAssPassangers(response.passengers));
+        }
     }
 }

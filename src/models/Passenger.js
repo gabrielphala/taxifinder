@@ -54,6 +54,30 @@ module.exports = new (class Passenger extends SQLifier {
         })
     }
 
+    getPassangersByRoute (route_id) {
+        return this.find({
+            condition: { route_id },
+            join: [
+                {
+                    ref: 'trip',
+                    id: 'trip_id'
+                },
+                {
+                    ref: 'route',
+                    id: 'route_id'
+                },
+                {
+                    ref: 'taxi',
+                    id: 'taxi_id'
+                },
+                {
+                    ref: 'user',
+                    id: 'user_id'
+                }
+            ]
+        })
+    }
+
     countPerTrip (trip_id) {
         return this.count({ trip_id })
     }

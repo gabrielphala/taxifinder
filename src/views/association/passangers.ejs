@@ -1,0 +1,42 @@
+<div class="container">
+    <%- include('../partials/sidenav/association') %>
+
+    <div class="container__main">
+        <%- include('../partials/header/association') %>
+
+        <div class="container__main__title">
+            <h1>Passangers</h1>
+            <p>See all passangers who have taken a taxi under you.</p>
+            <div class="container__main__title__dash"></div>
+        </div>
+
+        <div class="container__main__content">
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row flex">
+                        <li class="table__header__row__item">Name</li>
+                        <li class="table__header__row__item">Taxi Make & Model</li>
+                        <li class="table__header__row__item">Taxi Licence</li>
+                        <li class="table__header__row__item">From</li>
+                        <li class="table__header__row__item">To</li>
+                        <li class="table__header__row__item">Booked on</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="passanger-list">
+                    <ul class="table__body__row"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/assets/js/dist/jquery.js"></script>
+<script type="module">
+    import Passanger from "/assets/js/src/auth/Passenger.js"
+
+    Passanger.getPassangersByAssociation();
+
+    // $('#download-csv').on('click', e => {
+    //     Route.downloadCSV();
+    // })
+</script>

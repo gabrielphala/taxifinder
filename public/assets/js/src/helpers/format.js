@@ -52,6 +52,25 @@ export const formatUsers = (users) => {
     return formated;
 }
 
+export const formatAssPassangers = (passangers) => {
+    let formated = '', index = 0;
+
+    passangers.forEach(passanger => {
+        formated += `
+            <ul class="table__body__row">
+                <li class="table__body__row__item">${passanger.firstname} ${passanger.lastname}</li>
+                <li class="table__body__row__item">${passanger.make} ${passanger.model}</li>
+                <li class="table__body__row__item">${passanger.licence}</li>
+                <li class="table__body__row__item">${passanger.starting_address}</li>
+                <li class="table__body__row__item">${passanger.dest_address}</li>
+                <li class="table__body__row__item">${getStaticDate(passanger.booked_on)}</li>
+            </ul>
+        `
+    });
+
+    return formated;
+}
+
 export const formatTaxiAssociationAdmins = (admnis) => {
     let formated = '', index = 0;
 
